@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Project.Models.Activity>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div style="margin-left:370px;">
+    @Html.ActionLink("Edit  your profile", "Edit", "Person", new { id = int.Parse(Session["id"].ToString()) }, null) <br>
+    @Html.ActionLink("Log Out", "Logout")<br>
+    @Html.ActionLink("Friend", "Friend")<br>
+    @Html.ActionLink("Log as Admin", "Admin", "Connection") <br>
+</div>
+
+<h2>This is @Session["Name"]'s Activities </h2>
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityType.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityStatus.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityType.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityStatus.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID }) <br>
+            @Html.ActionLink("View Contribution", "Contribution", new { id = item.ID })
+        </td>
+    </tr>
+}
+
+</table>
+

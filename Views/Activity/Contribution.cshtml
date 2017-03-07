@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Project.Models.Contribution>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>This is all the Contribution by guests</h2>
+
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GuestName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EventId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContributionType.Type)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GuestName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContributionType.Type)
+            </td>
+           
+        </tr>
+    }
+
+</table>

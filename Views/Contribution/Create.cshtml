@@ -1,0 +1,55 @@
+﻿@model Project.Models.Contribution
+
+@{
+    ViewBag.Title = "Create";
+    
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Contribution</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GuestName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.GuestName)
+            @Html.ValidationMessageFor(model => model.GuestName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Quantity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Quantity)
+            @Html.ValidationMessageFor(model => model.Quantity)
+        </div>
+
+        
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ContributionTypeID, "ContributionType")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ContributionTypeID", String.Empty)
+            @Html.ValidationMessageFor(model => model.ContributionTypeID)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

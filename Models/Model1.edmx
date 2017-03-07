@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MoviesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Time" Type="nvarchar(max)" />
+          <Property Name="ActivityTypeID" Type="int" Nullable="false" />
+          <Property Name="ActivityStatusID" Type="int" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="PersonName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ActivityStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ActivityType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Contribution">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GuestName" Type="nvarchar(max)" />
+          <Property Name="Quantity" Type="nvarchar(max)" />
+          <Property Name="EventId" Type="int" Nullable="false" />
+          <Property Name="ContributionTypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContributionType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Nickname" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PersonRoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_Activity_dbo_ActivityStatus_ActivityStatusID">
+          <End Role="ActivityStatus" Type="Self.ActivityStatus" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivityStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="ActivityStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Activity_dbo_ActivityType_ActivityTypeID">
+          <End Role="ActivityType" Type="Self.ActivityType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivityType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="ActivityTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Contribution_dbo_ContributionType_ContributionTypeID">
+          <End Role="ContributionType" Type="Self.ContributionType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Contribution" Type="Self.Contribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContributionType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Contribution">
+              <PropertyRef Name="ContributionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Person_dbo_PersonRole_PersonRoleID">
+          <End Role="PersonRole" Type="Self.PersonRole" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="PersonRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MoviesModelStoreContainer">
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActivityStatus" EntityType="Self.ActivityStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActivityType" EntityType="Self.ActivityType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contribution" EntityType="Self.Contribution" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContributionType" EntityType="Self.ContributionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonRole" EntityType="Self.PersonRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Activity_dbo_ActivityStatus_ActivityStatusID" Association="Self.FK_dbo_Activity_dbo_ActivityStatus_ActivityStatusID">
+            <End Role="ActivityStatus" EntitySet="ActivityStatus" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Activity_dbo_ActivityType_ActivityTypeID" Association="Self.FK_dbo_Activity_dbo_ActivityType_ActivityTypeID">
+            <End Role="ActivityType" EntitySet="ActivityType" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Contribution_dbo_ContributionType_ContributionTypeID" Association="Self.FK_dbo_Contribution_dbo_ContributionType_ContributionTypeID">
+            <End Role="ContributionType" EntitySet="ContributionType" />
+            <End Role="Contribution" EntitySet="Contribution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Person_dbo_PersonRole_PersonRoleID" Association="Self.FK_dbo_Person_dbo_PersonRole_PersonRoleID">
+            <End Role="PersonRole" EntitySet="PersonRole" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MoviesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Time" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityStatusID" Type="Int32" Nullable="false" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="PersonName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ActivityStatus" Relationship="Self.FK_dbo_Activity_dbo_ActivityStatus_ActivityStatusID" FromRole="Activity" ToRole="ActivityStatus" />
+          <NavigationProperty Name="ActivityType" Relationship="Self.FK_dbo_Activity_dbo_ActivityType_ActivityTypeID" FromRole="Activity" ToRole="ActivityType" />
+        </EntityType>
+        <EntityType Name="ActivityStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK_dbo_Activity_dbo_ActivityStatus_ActivityStatusID" FromRole="ActivityStatus" ToRole="Activity" />
+        </EntityType>
+        <EntityType Name="ActivityType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK_dbo_Activity_dbo_ActivityType_ActivityTypeID" FromRole="ActivityType" ToRole="Activity" />
+        </EntityType>
+        <EntityType Name="Contribution">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GuestName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EventId" Type="Int32" Nullable="false" />
+          <Property Name="ContributionTypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ContributionType" Relationship="Self.FK_dbo_Contribution_dbo_ContributionType_ContributionTypeID" FromRole="Contribution" ToRole="ContributionType" />
+        </EntityType>
+        <EntityType Name="ContributionType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contribution" Relationship="Self.FK_dbo_Contribution_dbo_ContributionType_ContributionTypeID" FromRole="ContributionType" ToRole="Contribution" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nickname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersonRoleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PersonRole" Relationship="Self.FK_dbo_Person_dbo_PersonRole_PersonRoleID" FromRole="Person" ToRole="PersonRole" />
+        </EntityType>
+        <EntityType Name="PersonRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_dbo_Person_dbo_PersonRole_PersonRoleID" FromRole="PersonRole" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK_dbo_Activity_dbo_ActivityStatus_ActivityStatusID">
+          <End Role="ActivityStatus" Type="Self.ActivityStatus" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivityStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="ActivityStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Activity_dbo_ActivityType_ActivityTypeID">
+          <End Role="ActivityType" Type="Self.ActivityType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivityType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="ActivityTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Contribution_dbo_ContributionType_ContributionTypeID">
+          <End Role="ContributionType" Type="Self.ContributionType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Contribution" Type="Self.Contribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContributionType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Contribution">
+              <PropertyRef Name="ContributionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Person_dbo_PersonRole_PersonRoleID">
+          <End Role="PersonRole" Type="Self.PersonRole" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="PersonRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MoviesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activity" EntityType="Self.Activity" />
+          <EntitySet Name="ActivityStatus" EntityType="Self.ActivityStatus" />
+          <EntitySet Name="ActivityType" EntityType="Self.ActivityType" />
+          <EntitySet Name="Contribution" EntityType="Self.Contribution" />
+          <EntitySet Name="ContributionType" EntityType="Self.ContributionType" />
+          <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="PersonRole" EntityType="Self.PersonRole" />
+          <AssociationSet Name="FK_dbo_Activity_dbo_ActivityStatus_ActivityStatusID" Association="Self.FK_dbo_Activity_dbo_ActivityStatus_ActivityStatusID">
+            <End Role="ActivityStatus" EntitySet="ActivityStatus" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Activity_dbo_ActivityType_ActivityTypeID" Association="Self.FK_dbo_Activity_dbo_ActivityType_ActivityTypeID">
+            <End Role="ActivityType" EntitySet="ActivityType" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Contribution_dbo_ContributionType_ContributionTypeID" Association="Self.FK_dbo_Contribution_dbo_ContributionType_ContributionTypeID">
+            <End Role="ContributionType" EntitySet="ContributionType" />
+            <End Role="Contribution" EntitySet="Contribution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Person_dbo_PersonRole_PersonRoleID" Association="Self.FK_dbo_Person_dbo_PersonRole_PersonRoleID">
+            <End Role="PersonRole" EntitySet="PersonRole" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MoviesModelStoreContainer" CdmEntityContainer="MoviesEntities">
+          <EntitySetMapping Name="Activity">
+            <EntityTypeMapping TypeName="MoviesModel.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
+                <ScalarProperty Name="ActivityStatusID" ColumnName="ActivityStatusID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityStatus">
+            <EntityTypeMapping TypeName="MoviesModel.ActivityStatus">
+              <MappingFragment StoreEntitySet="ActivityStatus">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityType">
+            <EntityTypeMapping TypeName="MoviesModel.ActivityType">
+              <MappingFragment StoreEntitySet="ActivityType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contribution">
+            <EntityTypeMapping TypeName="MoviesModel.Contribution">
+              <MappingFragment StoreEntitySet="Contribution">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GuestName" ColumnName="GuestName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="ContributionTypeID" ColumnName="ContributionTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContributionType">
+            <EntityTypeMapping TypeName="MoviesModel.ContributionType">
+              <MappingFragment StoreEntitySet="ContributionType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="MoviesModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Nickname" ColumnName="Nickname" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PersonRoleID" ColumnName="PersonRoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonRole">
+            <EntityTypeMapping TypeName="MoviesModel.PersonRole">
+              <MappingFragment StoreEntitySet="PersonRole">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

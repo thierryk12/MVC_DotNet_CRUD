@@ -1,0 +1,51 @@
+﻿@model Project.Models.Person
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Please login here</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>User Logon</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            
+            @Html.PasswordFor(model => model.Password)
+           
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <p>
+            <input type="submit" value="Log On" />
+            <input type="button" value="Sign up" onclick="window.location.href='/Connection/Signup'"  />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Return to Home page", "Index", "Connection")
+</div>
+<div>
+    @Html.ActionLink("Log as Admin", "Admin", "Connection")
+</div>
+<div>
+    @Html.ActionLink("I want to Contribute an Event",  "Index","Contribution")
+</div>
